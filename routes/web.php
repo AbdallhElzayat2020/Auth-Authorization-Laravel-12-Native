@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,7 +28,6 @@ Route::controller(LoginController::class)->group(function () {
 });
 
 
-
 /* Forgot Password */
 Route::controller(ForgetPasswordController::class)->group(function () {
     Route::get('forget-password', 'showForgetPasswordForm')->name('show-forget-password-form');
@@ -42,6 +42,10 @@ Route::controller(ResetPasswordController::class)->group(function () {
 });
 
 
+Route::controller(VerifyEmailController::class)->group(function () {
+    Route::get('verify-email/{email}', 'showVerifyEmailForm')->name('verify-email.form-show');
+    Route::post('verify-email', 'verifyEmail')->name('verify-email.submit');
+});
 /* Protected Routes */
 Route::middleware(['auth'])->group(function () {
     Route::controller(ProfileController::class)->group(function () {
