@@ -46,8 +46,11 @@ Route::controller(VerifyEmailController::class)->group(function () {
     Route::get('verify-email/{email}', 'showVerifyEmailForm')->name('verify-email.form-show');
     Route::post('verify-email', 'verifyEmail')->name('verify-email.submit');
 });
-/* Protected Routes */
+
+
+/* Authenticated Routes */
 Route::middleware(['auth'])->group(function () {
+    /* Protected Routes */
     Route::controller(ProfileController::class)->group(function () {
         Route::get('profile', 'index')->name('profile');
         Route::put('profile/update', 'update')->name('profile.update');
