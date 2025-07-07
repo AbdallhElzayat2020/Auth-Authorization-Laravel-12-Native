@@ -50,6 +50,11 @@
                 class="w-full py-3 mt-4 bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
             Login
         </button>
+        <p class="mt-4 text-sm">Login without password?
+            <a href="{{ route('show-password-less-form') }}" class="text-blue-400 hover:underline">
+                Login now
+            </a>
+        </p>
         <!-- Google Login Link -->
 
         <!-- Social Login Buttons Row -->
