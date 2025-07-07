@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleAuthController;
@@ -19,22 +20,27 @@ Route::get('/', function () {
 
 /* Social media Login */
 
-Route::controller(GoogleAuthController::class)->group(function () {
-    Route::get('auth/google/callback', 'callback')->name('google-auth.callback');
-    Route::get('auth/google/redirect', 'redirect')->name('google-auth.redirect');
+//Route::controller(GoogleAuthController::class)->group(function () {
+//    Route::get('auth/google/callback', 'callback')->name('google-auth.callback');
+//    Route::get('auth/google/redirect', 'redirect')->name('google-auth.redirect');
+//});
+//
+//Route::controller(GitHubAuthController::class)->group(function () {
+//    Route::get('auth/github/callback', 'callback')->name('github-auth.callback');
+//    Route::get('auth/github/redirect', 'redirect')->name('github-auth.redirect');
+//});
+//
+//Route::controller(FacebookAuthController::class)->group(function () {
+//    Route::get('auth/facebook/callback', 'callback')->name('facebook-auth.callback');
+//    Route::get('auth/facebook/redirect', 'redirect')->name('facebook-auth.redirect');
+//});
+
+/* Social Auth Routes */
+
+Route::controller(SocialAuthController::class)->group(function () {
+    Route::get('auth/{driver}/callback', 'callback')->name('social-auth.callback');
+    Route::get('auth/{driver}/redirect', 'redirect')->name('social-auth.redirect');
 });
-
-Route::controller(GitHubAuthController::class)->group(function () {
-    Route::get('auth/github/callback', 'callback')->name('github-auth.callback');
-    Route::get('auth/github/redirect', 'redirect')->name('github-auth.redirect');
-});
-
-Route::controller(FacebookAuthController::class)->group(function () {
-    Route::get('auth/facebook/callback', 'callback')->name('facebook-auth.callback');
-    Route::get('auth/facebook/redirect', 'redirect')->name('facebook-auth.redirect');
-});
-
-
 
 
 /* register Routes */
