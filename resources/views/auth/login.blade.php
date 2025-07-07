@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-x..."
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-white flex items-center justify-center h-screen">
@@ -53,16 +56,23 @@
         <div class="flex justify-between mt-4">
             <!-- Google Login Button -->
             <a href="{{ route('google-auth.redirect') }}"
-               class="flex items-center justify-center w-1/2 py-3 bg-red-500 rounded-lg font-semibold text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 mr-2">
+               class="flex items-center justify-center w-1/3 py-3 bg-red-500 rounded-lg font-semibold text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 mr-2">
                 <i class="fa-brands fa-google fa-lg mr-3"></i>
                 Google
             </a>
 
             <!-- GitHub Login Button -->
             <a href="{{ route('github-auth.redirect') }}"
-               class="flex items-center justify-center w-1/2 py-3 bg-gray-600 rounded-lg font-semibold text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 mx-2">
+               class="flex items-center justify-center w-1/3 py-3 bg-gray-600 rounded-lg font-semibold text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 mx-2">
                 <i class="fa-brands fa-github fa-lg mr-3"></i>
                 GitHub
+            </a>
+
+            <!-- Facebook Login Button -->
+            <a href="{{ route('facebook-auth.redirect') }}"
+               class="flex items-center justify-center w-1/3 py-3 bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-2">
+                <i class="fab fa-facebook-f fa-lg mr-2"></i>
+                Facebook
             </a>
         </div>
 

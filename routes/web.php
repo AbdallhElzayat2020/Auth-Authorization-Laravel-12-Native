@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\GitHubAuthController;
+use App\Http\Controllers\Auth\FacebookAuthController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,6 +28,14 @@ Route::controller(GitHubAuthController::class)->group(function () {
     Route::get('auth/github/callback', 'callback')->name('github-auth.callback');
     Route::get('auth/github/redirect', 'redirect')->name('github-auth.redirect');
 });
+
+Route::controller(FacebookAuthController::class)->group(function () {
+    Route::get('auth/facebook/callback', 'callback')->name('facebook-auth.callback');
+    Route::get('auth/facebook/redirect', 'redirect')->name('facebook-auth.redirect');
+});
+
+
+
 
 /* register Routes */
 Route::controller(RegisterController::class)->group(function () {
