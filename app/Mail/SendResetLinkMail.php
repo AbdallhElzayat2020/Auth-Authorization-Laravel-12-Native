@@ -11,13 +11,14 @@ use Illuminate\Queue\SerializesModels;
 
 class SendResetLinkMail extends Mailable
 {
+
     use Queueable, SerializesModels;
 
     public string $resetUrl;
 
     public function __construct(string $token)
     {
-        $this->resetUrl = url('reset-password', $token);
+        $this->resetUrl = url('reset-password/' . $token);
     }
 
     /**
