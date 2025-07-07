@@ -9,7 +9,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleAuthController;
-
+use App\Http\Controllers\Auth\GitHubAuthController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,8 +17,16 @@ Route::get('/', function () {
 
 
 /* Social media Login */
-Route::get('auth/google/callback', [GoogleAuthController::class, 'callback'])->name('google-auth.callback');
-Route::get('auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('google-auth.redirect');
+
+Route::controller(GoogleAuthController::class)->group(function () {
+    Route::get('auth/google/callback', 'callback')->name('google-auth.callback');
+    Route::get('auth/google/redirect', 'redirect')->name('google-auth.redirect');
+});
+
+Route::controller(GitHubAuthController::class)->group(function () {
+    Route::get('auth/github/callback', 'callback')->name('github-auth.callback');
+    Route::get('auth/github/redirect', 'redirect')->name('github-auth.redirect');
+});
 
 /* register Routes */
 Route::controller(RegisterController::class)->group(function () {

@@ -9,21 +9,21 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
-class GoogleAuthController extends Controller
+class GitHubAuthController extends Controller
 {
     public function redirect()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('github')->redirect();
     }
 
     public function callback()
     {
-        $googleUser = Socialite::driver('google')->user();
+        $githubUser = Socialite::driver('github')->user();
 
         $user = User::firstOrCreate(
-            ['email' => $googleUser->getEmail()],
+            ['email' => $githubUser->getEmail()],
             [
-                'name' => $googleUser->getName(),
+                'name' => $githubUser->getName(),
                 'password' => Hash::make('12345678'),
                 'email_verified_at' => now(),
                 'otp' => rand(100000, 999999),
@@ -33,6 +33,5 @@ class GoogleAuthController extends Controller
         Auth::login($user);
         return redirect()->intended(route('profile'))->with('success', 'Login successful');
     }
-
 
 }
