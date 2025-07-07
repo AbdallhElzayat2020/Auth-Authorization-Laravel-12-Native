@@ -26,6 +26,7 @@ class ResetPasswordController extends Controller
         if (!$result) {
             return redirect()->back()->with(['error' => 'Invalid token or email.']);
         }
+
         DB::table('password_reset_tokens')->where('email', $request->email)
             ->delete();
         $user = User::whereEmail($request->email)->first();

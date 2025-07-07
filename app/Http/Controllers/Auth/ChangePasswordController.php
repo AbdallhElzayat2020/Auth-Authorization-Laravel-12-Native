@@ -13,14 +13,20 @@ class ChangePasswordController extends Controller
     public function changePassword(ChangePasswordRequest $request)
     {
         $user = Auth::user();
-        if (!Hash::check($request->new_password, $user->password)) {
+
+        if (!$user) {
+            return redirect()->back()->with(['error' => 'You must be logged in to change your password.']);
+        }
+
+        if (!Hash::check($request->current_password, $user->password)) {
             return redirect()->back()->with(['error' => 'The current password is incorrect.']);
         }
+
         try {
             $user->update(['password' => Hash::make($request->new_password)]);
             return redirect()->back()->with('success', 'Password changed successfully.');
         } catch (\Exception $exception) {
-            return redirect()->back()->with('error', 'An error occurred while changing the password. Please try again later.');
+            return redirect()->back()->with('error', $exception->getMessage());
         }
     }
 }

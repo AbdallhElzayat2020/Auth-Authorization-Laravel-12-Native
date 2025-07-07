@@ -8,11 +8,17 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\GoogleAuthController;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+
+/* Social media Login */
+Route::get('auth/google/callback', [GoogleAuthController::class, 'callback'])->name('google-auth.callback');
+Route::get('auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('google-auth.redirect');
 
 /* register Routes */
 Route::controller(RegisterController::class)->group(function () {
@@ -42,6 +48,7 @@ Route::controller(ResetPasswordController::class)->group(function () {
 });
 
 
+/* Verify email with otp */
 Route::controller(VerifyEmailController::class)->group(function () {
     Route::get('verify-email/{email}', 'showVerifyEmailForm')->name('verify-email.form-show');
     Route::post('verify-email', 'verifyEmail')->name('verify-email.submit');

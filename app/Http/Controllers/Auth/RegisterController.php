@@ -22,12 +22,11 @@ class RegisterController extends Controller
         try {
             DB::beginTransaction();
 
-            $otp = rand(100000, 999999);
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'otp' => $otp,
+                'otp' => rand(100000, 999999),
             ]);
 
             Mail::to($request->email)->send(new VerifyAccountOtpMail($user->otp, $user->email));
@@ -36,7 +35,7 @@ class RegisterController extends Controller
             return redirect()->route('verify-email.form-show', $user->email);
         } catch (\Exception $exception) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'An error occurred while processing your request. Please try again later.');
+            return redirect()->back()->with('error', $exception->getMessage());
         }
     }
 }
