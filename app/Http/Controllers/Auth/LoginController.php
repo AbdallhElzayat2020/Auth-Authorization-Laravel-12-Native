@@ -21,22 +21,23 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $credentials = $request->only('email', 'password');
 
-        $user = User::whereEmail($request->email)->first();
+        $user = User::where('email', $request->identifier)
+            ->orWhere('phone', $request->identifier)
+            ->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return redirect()->back()->with('error', 'Invalid credentials, please try again.');
+            return redirect()->back()->with('error', 'Invalid credentials');
         }
+
         if (!$user->email_verified_at) {
             Mail::to($user->email)->send(new VerifyAccountOtpMail($user->otp, $user->email));
             return redirect()->route('verify-email.form-show', $user->email);
         }
 
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('/profile')->with('success', 'Login successful.');
-        }
-        return redirect()->back()->with('error', 'Invalid credentials, please try again.');
+        Auth::login($user);
+        return redirect()->intended('/profile')->with('success', 'Login successful.');
+
 
     }
 }

@@ -29,6 +29,14 @@
             @enderror
         </div>
         <div>
+            <label for="phone" class="block mb-2 text-sm font-medium">Phone</label>
+            <input type="text" id="phone" name="phone" autocomplete="phone" value="{{old('phone')}}"
+                   class="w-full p-3 rounded bg-gray-700 text-gray-100 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            @error('phone')
+            <span class="text-red-500 text-sm mt-1"> {{ $message }}</span>
+            @enderror
+        </div>
+        <div>
             <label for="password" class="block mb-2 text-sm font-medium">Password</label>
             <input type="password" id="password" name="password" autocomplete="new-password"
                    class="w-full p-3 rounded bg-gray-700 text-gray-100 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">

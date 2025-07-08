@@ -25,6 +25,7 @@ class UpdateProfileRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $id],
+            'phone' => ['required', 'string', 'max:255', 'regex:/^01[0,1,2,5][0-9]{8}$/', 'unique:users,phone,' . $id],
         ];
     }
 }

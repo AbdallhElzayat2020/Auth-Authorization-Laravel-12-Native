@@ -27,6 +27,7 @@ class RegisterController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'otp' => rand(100000, 999999),
+                'phone' => $request->phone,
             ]);
 
             Mail::to($request->email)->send(new VerifyAccountOtpMail($user->otp, $user->email));

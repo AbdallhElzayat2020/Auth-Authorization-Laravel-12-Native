@@ -23,6 +23,7 @@ class ProfileController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
         ]);
         return redirect()->route('profile')->with('success', 'updated successfully');
     }
