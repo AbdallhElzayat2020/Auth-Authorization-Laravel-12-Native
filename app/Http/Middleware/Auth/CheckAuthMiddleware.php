@@ -20,9 +20,9 @@ class CheckAuthMiddleware
             return redirect()->route('show-login-form')->with('error', 'You must be logged in to access this page.');
         }
 
-        if (Auth::user()->email_verified_at === null) {
-            return redirect()->route('verify-email.form-show', Auth::user()->email)
-                ->with('error', 'Please verify your email before accessing this page.');
+        if (Auth::user()->account_verified_at === null) {
+            return redirect()->route('verify-account.form-show', Auth::user()->email)
+                ->with('error', 'Please verify your account before accessing this page.');
         }
 
         return $next($request);

@@ -33,7 +33,7 @@ class RegisterController extends Controller
             Mail::to($request->email)->send(new VerifyAccountOtpMail($user->otp, $user->email));
             DB::commit();
 
-            return redirect()->route('verify-email.form-show', $user->email);
+            return redirect()->route('verify-account.form-show', $user->email);
         } catch (\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->with('error', $exception->getMessage());

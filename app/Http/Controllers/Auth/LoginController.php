@@ -30,9 +30,9 @@ class LoginController extends Controller
             return redirect()->back()->with('error', 'Invalid credentials');
         }
 
-        if (!$user->email_verified_at) {
+        if (!$user->account_verified_at) {
             Mail::to($user->email)->send(new VerifyAccountOtpMail($user->otp, $user->email));
-            return redirect()->route('verify-email.form-show', $user->email);
+            return redirect()->route('verify-account.form-show', $user->email);
         }
 
         Auth::login($user);

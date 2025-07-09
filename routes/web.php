@@ -8,7 +8,7 @@ use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\SocialAuthController;
-use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\VerifyAccountController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,6 +19,7 @@ Route::get('/', function () {
 /* Social Auth Routes */
 Route::controller(SocialAuthController::class)->group(function () {
     Route::get('auth/{driver}/callback', 'callback')->name('social-auth.callback');
+
     Route::get('auth/{driver}/redirect', 'redirect')->name('social-auth.redirect');
 });
 
@@ -26,12 +27,14 @@ Route::controller(SocialAuthController::class)->group(function () {
 /* register Routes */
 Route::controller(RegisterController::class)->group(function () {
     Route::get('register', 'showRegisterForm')->name('show-register-form');
+
     Route::post('register', 'register')->name('register');
 });
 
 /* login Routes */
 Route::controller(LoginController::class)->group(function () {
     Route::get('login', 'showLoginForm')->name('show-login-form');
+
     Route::post('login', 'login')->name('handle-login');
 });
 
@@ -59,10 +62,11 @@ Route::controller(PasswordLessController::class)->group(function () {
 });
 
 
-/* Verify email with otp */
-Route::controller(VerifyEmailController::class)->group(function () {
-    Route::get('verify-email/{email}', 'showVerifyEmailForm')->name('verify-email.form-show');
-    Route::post('verify-email', 'verifyEmail')->name('verify-email.submit');
+/* Verify account with otp */
+Route::controller(VerifyAccountController::class)->group(function () {
+    Route::get('verify-account/{identifier}', 'showVerifyAccountForm')->name('verify-account.form-show');
+    Route::post('verify-account', 'verifyAccount')->name('verify-account.submit');
+    Route::post('send-verification-otp', 'sendOtp')->name('send-verification-otp');
 });
 
 /* Authenticated Routes */

@@ -15,10 +15,10 @@ class VerifyAccountOtpMail extends Mailable
 
     public $otp, $verifyUrl;
 
-    public function __construct(string $otp, string $email)
+    public function __construct(string $otp, string $identifier)
     {
         $this->otp = $otp;
-        $this->verifyUrl = route('verify-email.form-show', $email);
+        $this->verifyUrl = route('verify-account.form-show', $identifier);
     }
 
     /**

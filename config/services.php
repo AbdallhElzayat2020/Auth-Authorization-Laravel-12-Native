@@ -35,6 +35,7 @@ return [
         ],
     ],
 
+    /* Social Auth */
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
@@ -52,6 +53,13 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => env('FACEBOOK_CALLBACK_UEL'),
     ],
+    /* Social Auth */
 
+    /* send Verification OTP WhatsApp */
+    'whatsapp' => [
+        'access_token' => env('WHATSAPP_ACCESS_TOKEN'),
+        'phone_id' => env('WHATSAPP_PHONE_ID'),
+        'template_name' => env('WHATSAPP_TEMPLATE_NAME'),
+    ],
 
 ];
