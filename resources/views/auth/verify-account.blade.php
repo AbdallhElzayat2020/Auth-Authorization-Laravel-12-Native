@@ -20,6 +20,9 @@
     @session('error')
     <p class="text-center text-red-400 mb-4">{{ session('error') }}</p>
     @endsession
+    @session('success')
+    <p class="text-center text-green-400 mb-4">{{ session('error') }}</p>
+    @endsession
     @if ($errors->any())
         @foreach ($errors->all() as $error)
             <p class="text-center text-red-400 mb-4">{{ $error }}</p>

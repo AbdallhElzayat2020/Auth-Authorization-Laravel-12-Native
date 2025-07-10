@@ -36,7 +36,7 @@ class PhoneVerificationService
             "template" => [
                 "name" => $this->templateName,
                 "language" => [
-                    "code" => "en_US"
+                    "code" => "en"
                 ],
                 "components" => [
                     [

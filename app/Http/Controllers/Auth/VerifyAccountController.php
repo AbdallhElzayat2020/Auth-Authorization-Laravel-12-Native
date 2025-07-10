@@ -7,11 +7,18 @@ use App\Http\Requests\Auth\SendVerificationOtpRequest;
 use App\Http\Requests\Auth\VerifyEmailOtpRequest;
 use App\Mail\VerifyAccountOtpMail;
 use App\Models\User;
+use App\Services\PhoneVerificationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class VerifyAccountController extends Controller
 {
+    public function __construct(public PhoneVerificationService $phoneVerificationService)
+    {
+
+    }
+
     public function showVerifyAccountForm($identifier)
     {
         return view('auth.verify-account', ['identifier' => $identifier]);
@@ -35,10 +42,20 @@ class VerifyAccountController extends Controller
                 return back()->with('error', 'You do not have a phone number ');
             }
 
-            dd('otp sent to phone');
+            try {
+                $response = $this->phoneVerificationService->sendOtpMessage($user->phone, $user->otp);
+                if ($response->failed()) {
+               Log::info($response);
+                    return back()->with('error', 'Failed to send OTP to this phone ! try again later');
+                }
+            } catch (\Exception $exception) {
+                return back()->with('error', $exception->getMessage());
+
+            }
         }
 
-        return redirect()->route('verify-account.form-show', $user->email);
+        return redirect()->route('verify-account.form-show', $request->type == 'phone' ? $user->phone : $user->otp)
+            ->with('success', 'OTP sent successfully');
     }
 
     public function verifyAccount(VerifyEmailOtpRequest $request)
