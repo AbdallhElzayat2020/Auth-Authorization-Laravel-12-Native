@@ -33,7 +33,7 @@ Route::controller(RegisterController::class)->group(function () {
 
 /* login Routes */
 Route::controller(LoginController::class)->group(function () {
-    Route::get('login', 'showLoginForm')->name('show-login-form');
+    Route::get('login', 'showLoginForm')->name('login');
 
     Route::post('login', 'login')->name('handle-login');
 });
@@ -69,8 +69,9 @@ Route::controller(VerifyAccountController::class)->group(function () {
     Route::post('send-verification-otp', 'sendOtp')->name('send-verification-otp');
 });
 
+
 /* Authenticated Routes */
-Route::middleware(['check_auth'])->group(function () {
+Route::middleware(['auth', 'auth.session'])->group(function () {
     /* Protected Routes */
     Route::controller(ProfileController::class)->group(function () {
         Route::get('profile', 'index')->name('profile');

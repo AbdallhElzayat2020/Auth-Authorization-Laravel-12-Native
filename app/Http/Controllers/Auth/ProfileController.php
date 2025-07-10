@@ -17,20 +17,22 @@ class ProfileController extends Controller
     public function update(UpdateProfileRequest $request)
     {
         $user = Auth::user();
+
         if (!$user) {
             abort(404);
         }
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-        ]);
+        $data = $request->validated();
+
+        $data['logout_other_devices'] = $request->has('logout_other_devices') ? true : false;
+
+        $user->update($data);
+
         return redirect()->route('profile')->with('success', 'updated successfully');
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('show-login-form')->with('success', 'Logout successful');
+        return redirect()->route('login')->with('success', 'Logout successful');
     }
 }

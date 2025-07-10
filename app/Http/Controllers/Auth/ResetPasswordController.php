@@ -31,6 +31,6 @@ class ResetPasswordController extends Controller
             ->delete();
         $user = User::whereEmail($request->email)->first();
         $user->update(['password' => Hash::make($request->password)]);
-        return to_route('show-login-form')->with('success', 'Password reset successfully. Please log in with your new password.');
+        return to_route('login')->with('success', 'Password reset successfully. Please log in with your new password.');
     }
 }

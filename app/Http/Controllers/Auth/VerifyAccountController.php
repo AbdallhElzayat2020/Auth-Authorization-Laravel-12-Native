@@ -32,7 +32,7 @@ class VerifyAccountController extends Controller
             ->first();
 
         if ($user->account_verified_at) {
-            return redirect()->route('show-login-form')->with('success', 'Account already verified');
+            return redirect()->route('login')->with('success', 'Account already verified');
         }
         if ($request->type === 'email') {
             Mail::to($user->email)->send(new VerifyAccountOtpMail($user->otp, $user->email));
@@ -72,6 +72,6 @@ class VerifyAccountController extends Controller
         $user->account_verified_at = now();
         $user->otp = null;
         $user->save();
-        return redirect()->route('show-login-form')->with('success', 'Account verified successfully, you can now login.');
+        return redirect()->route('login')->with('success', 'Account verified successfully, you can now login.');
     }
 }

@@ -11,7 +11,7 @@
 <div class="text-center">
     <h1 class="text-5xl font-bold mb-4">Welcome to My Laravel App</h1>
     <p class="text-lg mb-8">This is a simple landing page built with Laravel and Tailwind CSS.</p>
-    <a href="{{ route('show-login-form') }}" class="px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition">Login</a>
+    <a href="{{ route('login') }}" class="px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition">Login</a>
     <a href="{{ route('show-register-form') }}" class="px-6 py-3 bg-green-600 rounded-lg hover:bg-green-700 transition ml-4">Register</a>
 </div>
 </body>

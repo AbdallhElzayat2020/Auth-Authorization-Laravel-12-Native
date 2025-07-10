@@ -25,6 +25,7 @@ class User extends Authenticatable
         'remember_token',
         'otp',
         'phone',
+        'logout_other_devices'
     ];
 
     /**

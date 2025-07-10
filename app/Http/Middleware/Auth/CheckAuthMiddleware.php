@@ -17,7 +17,7 @@ class CheckAuthMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::user()) {
-            return redirect()->route('show-login-form')->with('error', 'You must be logged in to access this page.');
+            return redirect()->route('login')->with('error', 'You must be logged in to access this page.');
         }
 
         if (Auth::user()->account_verified_at === null) {

@@ -24,6 +24,7 @@ class ChangePasswordController extends Controller
 
         try {
             $user->update(['password' => Hash::make($request->new_password)]);
+
             return redirect()->back()->with('success', 'Password changed successfully.');
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', $exception->getMessage());
