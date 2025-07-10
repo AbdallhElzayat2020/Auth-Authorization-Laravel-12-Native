@@ -16,14 +16,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 /* Social Auth Routes */
 Route::controller(SocialAuthController::class)->group(function () {
     Route::get('auth/{driver}/callback', 'callback')->name('social-auth.callback');
 
     Route::get('auth/{driver}/redirect', 'redirect')->name('social-auth.redirect');
 });
-
 
 /* register Routes */
 Route::controller(RegisterController::class)->group(function () {

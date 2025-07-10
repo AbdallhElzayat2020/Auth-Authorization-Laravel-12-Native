@@ -46,6 +46,15 @@
                 Reset now
             </a>
         </p>
+
+        <div class="flex items-center mb-4">
+            <input type="checkbox" name="remember" id="remember">
+            <label for="remember" class="block text-gray-300 ml-1">Remember Me</label>
+            @error('remember')
+            <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+            @enderror
+        </div>
+
         <button type="submit"
                 class="w-full py-3 mt-4 bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
             Login

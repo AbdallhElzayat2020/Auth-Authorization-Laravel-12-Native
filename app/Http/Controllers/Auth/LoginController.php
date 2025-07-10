@@ -21,7 +21,6 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-
         $user = User::where('email', $request->identifier)
             ->orWhere('phone', $request->identifier)
             ->first();
@@ -35,7 +34,9 @@ class LoginController extends Controller
             return redirect()->route('verify-account.form-show', $user->email);
         }
 
-        Auth::login($user);
+        $remember = $request->has('remember');
+        
+        Auth::login($user, $remember);
 
         if ($user->logout_other_devices) {
             Auth::logoutOtherDevices($request->password);
