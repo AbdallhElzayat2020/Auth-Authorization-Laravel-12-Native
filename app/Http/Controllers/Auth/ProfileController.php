@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\UpdateProfileRequest;
+use App\Models\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,5 +35,17 @@ class ProfileController extends Controller
     {
         Auth::logout();
         return redirect()->route('login')->with('success', 'Logout successful');
+    }
+
+    public function logoutDevice(Request $request, Session $session)
+    {
+        $session->delete();
+
+        // If the session is the current session, log out the user
+        if ($session->id == $request->session()->getId()) {
+            Auth::logout();
+        }
+
+        return back()->with('success', 'Device logged out successfully');
     }
 }

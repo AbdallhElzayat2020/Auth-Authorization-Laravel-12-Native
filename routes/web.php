@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Auth\VerifyAccountController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Session;
 
 Route::get('/', function () {
     return view('welcome');
@@ -62,6 +63,11 @@ Route::controller(PasswordLessController::class)->group(function () {
 });
 
 
+/* sessions */
+Route::get('sessions', function () {
+    return Session::all();
+});
+
 /* Verify account with otp */
 Route::controller(VerifyAccountController::class)->group(function () {
     Route::get('verify-account/{identifier}', 'showVerifyAccountForm')->name('verify-account.form-show');
@@ -77,6 +83,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
         Route::get('profile', 'index')->name('profile');
         Route::put('profile/update', 'update')->name('profile.update');
         Route::post('logout', 'logout')->name('logout');
+        Route::post('logout/{session}', 'logoutDevice')->name('logout.session');
     });
 
     Route::put('change-password', [ChangePasswordController::class, 'changePassword'])->name('change-password');
