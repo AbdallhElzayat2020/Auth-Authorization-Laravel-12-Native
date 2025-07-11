@@ -27,6 +27,7 @@ class RegisterRequest extends FormRequest
             'phone' => ['nullable', 'string', 'max:255', 'unique:users,phone'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required', 'string', 'min:8'],
+            'g-recaptcha-response' => ['required', 'recaptcha'],
         ];
     }
 

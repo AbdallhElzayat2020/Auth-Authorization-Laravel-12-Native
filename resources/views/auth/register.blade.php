@@ -6,6 +6,7 @@
     <title>Register</title>
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    {!! htmlScriptTagJsApi() !!}
 </head>
 <body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
 <div class="w-full max-w-xl p-8 space-y-6 bg-gray-800 rounded-lg shadow-lg">
@@ -55,6 +56,13 @@
                 <input type="password" id="confirm-password" name="password_confirmation" autocomplete="new-password"
                        class="w-full p-3 rounded bg-gray-700 text-gray-100 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
+        </div>
+        {{-- recaptcha --}}
+        <div class="">
+            {!! htmlFormSnippet() !!}
+            @error('g-recaptcha-response')
+            <span class="text-red-500 text-sm mt-1">{{$message}}</span>
+            @enderror
         </div>
         <button type="submit"
                 class="w-full py-3 mt-4 bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
