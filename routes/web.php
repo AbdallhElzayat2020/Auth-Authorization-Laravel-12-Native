@@ -83,7 +83,10 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
         Route::post('logout', 'logout')->name('logout');
         Route::post('logout/{session}', 'logoutDevice')->name('logout.session');
     });
-
     Route::put('change-password', [ChangePasswordController::class, 'changePassword'])->name('change-password');
+
+    Route::view('admin', 'pages.admin')->name('admin')->middleware('check_role:admin');
+    Route::view('student', 'pages.student')->name('student')->middleware('check_role:student');
+    Route::view('teacher', 'pages.teacher')->name('teacher')->middleware('check_role:teacher');
 });
 
