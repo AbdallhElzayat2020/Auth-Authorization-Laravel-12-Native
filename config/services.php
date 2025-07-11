@@ -62,4 +62,9 @@ return [
         'template_name' => env('WHATSAPP_TEMPLATE_NAME'),
     ],
 
+    'recaptchav3' => [
+        'site_key' => env('RECAPTCHA_SITE_KEY'),
+        'secret_key' => env('RECAPTCHA_SECRET_KEY'),
+    ],
+
 ];

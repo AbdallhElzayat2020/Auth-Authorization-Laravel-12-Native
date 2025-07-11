@@ -35,7 +35,7 @@ class LoginController extends Controller
         }
 
         $remember = $request->has('remember');
-        
+
         Auth::login($user, $remember);
 
         if ($user->logout_other_devices) {

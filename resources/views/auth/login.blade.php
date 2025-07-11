@@ -9,6 +9,12 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    {{-- recaptcha CDN --}}
+    {{--    <script src="https://www.google.com/recaptcha/api.js"></script>--}}
+
+    {{--   recaptcha V3 --}}
+    {!! htmlScriptTagJsApi() !!}
 </head>
 <body class="bg-gray-900 text-white flex items-center justify-center h-screen">
 <div class="w-full max-w-md p-8 space-y-6 bg-gray-800 rounded-lg shadow-lg">
@@ -23,7 +29,7 @@
         {{ session('success') }}
     </div>
     @endsession
-    <form action="{{ route('handle-login') }}" method="POST" class="space-y-4">
+    <form action="{{ route('handle-login') }}" method="POST" id="login-form" class="space-y-4">
         @csrf
         <div>
             <label for="identifier" class="block mb-2 text-sm font-medium">Email / Phone</label>
@@ -55,10 +61,26 @@
             @enderror
         </div>
 
+        {{-- recaptcha --}}
+        <div class="">
+            {!! htmlFormSnippet() !!}
+            @error('g-recaptcha-response')
+            <span class="text-red-500 text-sm mt-1">{{$message}}</span>
+            @enderror
+        </div>
+
+
         <button type="submit"
                 class="w-full py-3 mt-4 bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
             Login
         </button>
+
+        {{--        for V3 --}}
+        {{--        <button class="g-recaptcha w-full py-3 mt-4 bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"--}}
+        {{--                data-sitekey="{{ config('services.recaptchav3.site_key') }}"--}}
+        {{--                data-callback='onSubmit'--}}
+        {{--                data-action='submit'>Submit--}}
+        {{--        </button>--}}
         <p class="mt-4 text-sm">Login without password?
             <a href="{{ route('show-password-less-form') }}" class="text-blue-400 hover:underline">
                 Login now
@@ -95,5 +117,13 @@
         </p>
     </form>
 </div>
+
+
+{{--recaptcha v3--}}
+{{--<script>--}}
+{{--    function onSubmit(token) {--}}
+{{--        document.getElementById("login-form").submit();--}}
+{{--    }--}}
+{{--</script>--}}
 </body>
 </html>
