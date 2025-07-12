@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Auth\VerifyAccountController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Session;
+use App\Http\Controllers\Admin\RoleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -88,5 +90,14 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::view('admin', 'pages.admin')->name('admin')->middleware('check_role:admin');
     Route::view('student', 'pages.student')->name('student')->middleware('check_role:student');
     Route::view('teacher', 'pages.teacher')->name('teacher')->middleware('check_role:teacher');
+
+
+    /* users Route*/
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('users/{user}/change-role', [UserController::class, 'changeRole'])->name('users.change-role');
+    Route::resource('roles', RoleController::class);
+
+    /* roles Route*/
+
 });
 

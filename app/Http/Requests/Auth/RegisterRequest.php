@@ -28,7 +28,6 @@ class RegisterRequest extends FormRequest
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required', 'string', 'min:8'],
             'g-recaptcha-response' => ['required', 'recaptcha'],
-            'role' => ['required', 'string', 'in:student,teacher'],
         ];
     }
 
