@@ -46,10 +46,12 @@
                 <tr class="hover:bg-gray-700">
                     <td class="p-3 border-b border-gray-700">{{$index + 1}}</td>
                     <td class="p-3 border-b border-gray-700">{{$role->name}}</td>
-                    <td class="p-3 border-b border-gray-700">0</td>
+                    <td class="p-3 border-b border-gray-700">{{$role->permissions()->count()}}</td>
                     <td class="p-3 border-b border-gray-700">
-                        <button onclick="openEditModal({{$role->id}}, '{{$role->name}}')" class="bg-yellow-500 text-white px-3 py-1 rounded">Edit
+                        <button onclick="openEditModal({{ $role->id }}, '{{ $role->name }}', {{ json_encode($role->permissions->pluck('id')) }})"
+                                class="bg-yellow-500 text-white px-3 py-1 rounded">Edit
                         </button>
+
                         <button onclick="openDeleteModal({{$role->id}})" class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
                     </td>
                 </tr>
@@ -85,6 +87,18 @@
             <input type="hidden" id="editRoleId">
             <input type="text" id="editRoleName" name="name" placeholder="Role Name"
                    class="w-full p-3 rounded bg-gray-700 text-gray-100 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
+
+            <div id="permissionsList" class="flex flex-wrap items-center gap-2 mb-4">
+                @foreach ($permissions as $permission)
+                    <input type="checkbox" name="permissions[]" id="permission_{{ $permission->id }}" value="{{ $permission->id }}" class="hidden">
+                    <label for="permission_{{ $permission->id }}"
+                           data-permission-id="{{ $permission->id }}"
+                           class="permission-label cursor-pointer p-2 border border-gray-600 rounded text-gray-100 hover:bg-gray-700 transition">
+                        {{ ucwords(str_replace('_', ' ', $permission->name)) }}
+                    </label>
+                @endforeach
+            </div>
+
             <div class="flex justify-end space-x-2">
                 <button type="button" onclick="closeModal('editRoleModal')" class="bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>
                 <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded">Update</button>
@@ -118,10 +132,22 @@
         document.getElementById(id).classList.add('hidden');
     }
 
-    function openEditModal(id, name) {
+    function openEditModal(id, name, rolePermissions) {
         document.getElementById('editRoleId').value = id;
         document.getElementById('editRoleName').value = name;
-        document.getElementById('editRoleForm').action = `/roles/${id}`;
+        document.getElementById('editRoleForm').action = `/admin/roles/${id}`;
+
+        const permissionInputs = document.querySelectorAll('#permissionsList input[type="checkbox"]');
+        permissionInputs.forEach(input => {
+            input.checked = false;
+        });
+        rolePermissions.forEach(permissionId => {
+            const input = document.querySelector(`#permissionsList input[value="${permissionId}"]`);
+            if (input) {
+                input.checked = true;
+            }
+        });
+
         openModal('editRoleModal');
     }
 
