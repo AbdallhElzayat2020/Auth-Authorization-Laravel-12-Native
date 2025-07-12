@@ -87,17 +87,17 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     });
     Route::put('change-password', [ChangePasswordController::class, 'changePassword'])->name('change-password');
 
-    Route::view('admin', 'pages.admin')->name('admin')->middleware('check_role:admin');
-    Route::view('student', 'pages.student')->name('student')->middleware('check_role:student');
-    Route::view('teacher', 'pages.teacher')->name('teacher')->middleware('check_role:teacher');
+    Route::view('admin', 'pages.admin')->name('admin')->middleware('check_role:Admin');
+    Route::view('student', 'pages.student')->name('student')->middleware('check_role:Student');
+    Route::view('teacher', 'pages.teacher')->name('teacher')->middleware('check_role:Teacher');
 
 
     /* users Route*/
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('users/{user}/change-role', [UserController::class, 'changeRole'])->name('users.change-role');
-    Route::resource('roles', RoleController::class);
 
     /* roles Route*/
+    Route::resource('roles', RoleController::class);
 
 });
 
