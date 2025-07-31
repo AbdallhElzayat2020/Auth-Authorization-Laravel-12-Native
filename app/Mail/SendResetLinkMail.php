@@ -21,6 +21,8 @@ class SendResetLinkMail extends Mailable
         $this->resetUrl = url('reset-password/' . $token);
     }
 
+
+
     /**
      * Get the message envelope.
      */
